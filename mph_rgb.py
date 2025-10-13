@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Metroid Prime: Hunters RGB controller
 
-Control the RGB lighting of my stuff with MPH weapon status.
+Control the RGB lighting of your hardware with MPH weapon status.
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -182,17 +182,78 @@ def get_active_weapon(screenshot: Image, hunter: str = None) -> str:
         if color_sense(screenshot, coords, CONFIG["hunterSpecs"][hunter]["thirdWeaponSenseColors"][weapon]):
             return weapon
 
+    # Somehow, weapon detection failed
+    return None
+
+
+def multiple_choice(title: str, options: Sequence[str]) -> str:
+    """Allow the user to choose between multiple options.
+        Automatically selects a lone option.
+
+    Args:
+        title (str): The question at hand.
+        options (Sequence[str]): A subscriptable of option strings.
+
+    Returns:
+        choice (str): The chosen option."""
+
+    # The function can't work if there's no options to choose from!
+    assert len(options) > 0, "Too few options"
+
+    # If there's just one option, choose it automatically
+    if len(options) == 1:
+        print(f"Only one option for, \"{title}\", and that is \"{options[0]}\".")
+        return options[0]
+
+    # Find the 'biggest' option by length, and then find out how long it is.
+    option_max_width = len(max(options, key=len))
+
+    # We're going to show a number next to each option as well, so we'd better
+    # get the visual length of the biggest number as well.
+    num_width = len(str(len(options)))
+
+    # Make sure we get a valid choice.
+    # The return statements will exit this loop for us.
+    while True:
+        # Display the question and the options, and get an input
+        print(title)
+
+        for i, option in enumerate(options):
+            # Line all the options and their numbering up
+            print(f"{i + 1:0{num_width}d}··{option:·>{option_max_width}}")
+
+        # Finally, ask the user for some input.
+        entry = input("Choice: ")
+
+        # Option was typed directly
+        if entry in options:
+            return entry
+
+        # Number was typed
+        if entry.isnumeric():
+            try:
+                return options[int(entry) - 1]
+
+            # The number wasn't a valid option index
+            except IndexError:
+                print("Entered number does not match an option.")
+
+        # Something was typed but it was invalid
+        if entry:
+            print("Invalid entry. Please type a number or the option itself.")
 
 client = OpenRGBClient()
-for device in client.devices:
-    if "Dell" in device.name:
-        break
+
+# Device selection code
+devices_by_name = {device.name: device for device in client.devices}
+name_choice = multiple_choice("Choose RGB device to use:", list(devices_by_name))
+device = devices_by_name[name_choice]
 
 prev_hunter = None
 prev_weapon = None
 device.set_color(RGBColor(0, 0, 0))
 
-while False:
+while True:
     screenshot = get_screenshot()
     hunter = get_active_hunter(screenshot)
     if hunter != prev_hunter:
