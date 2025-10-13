@@ -1,0 +1,219 @@
+hudCheckInterval = 1 #How often to check if Samus's HUD is shown
+pauseInterval = 0.1 #How often to run the pause loop
+buttonHoldInterval = 0.05 #How often to rerun the mouse movement command to keep the cursor locked onto a button
+startDelay = 3 #Time until mousefix starts after clicking Start
+
+
+pauseKey="\\" #Pause the mouse fix manually
+killKey="backspace" #Kill the mouse fix
+
+colorTolerance = 10
+
+scale = [900, 674] #Size of reference window
+
+[weaponColorsShow] #Colors to display in the RGB for each weapon
+powerBeam = [255, 255, 255]
+missiles = [255, 153, 85]
+shockCoil = [0, 132, 255]
+magmaul = [255, 132, 0]
+judicator = [165, 74, 255]
+imperialist = [255, 0, 0]
+battlehammer = [0, 255, 0]
+voltDriver = [255, 255, 0]
+
+[hunterSpecs.Samus]
+isHudCoords = [5,  667] #Coordinates to check for color match if we are in HUD
+isHudColor = [211, 154, 73] #Color of varia components in HUD
+isAltCoords = [800, 530] #Coordinates to check if we are in alt form or not
+isAltColor = [211, 154, 73] #Color that the morph switch turns to at the specified coordinates when in alt form
+mainWeaponSenseColor = [105, 227, 40] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Samus.mainWeaponCoords]
+powerBeam = [260, 80]
+missiles = [400, 75]
+third = [550, 80]
+
+[hunterSpecs.Samus.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [620, 100]
+magmaul = [580, 120]
+judicator = [605, 135]
+imperialist = [605, 100]
+battlehammer = [605, 120]
+voltDriver = [605, 90]
+
+[hunterSpecs.Samus.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [56, 73, 89]
+magmaul = [106, 81, 32]
+judicator = [65, 16, 97]
+imperialist = [89, 32, 32]
+battlehammer = [16, 65, 48]
+voltDriver = [97, 97, 32]
+
+[hunterSpecs.Kanden]
+isHudCoords = [160, 585] #Coordinates to check for color match if we are in HUD
+isHudColor = [81, 81, 65] #Color of highlight
+isAltCoords = [735, 613] #Coordinates to check if we are in alt form or not
+isAltColor = [251, 195, 138] #Color that the morph switch turns to at the specified coordinates when in alt form
+mainWeaponSenseColor = [251, 251, 89] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Kanden.mainWeaponCoords]
+powerBeam = [335, 80]
+missiles = [445, 150]
+third = [565, 95]
+
+[hunterSpecs.Kanden.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [630, 105]
+magmaul = [630, 110]
+judicator = [612, 143]
+imperialist = [612, 106]
+battlehammer = [612, 125]
+voltDriver = [612, 96]
+
+[hunterSpecs.Kanden.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [56, 73, 89]
+magmaul = [105, 81, 32]
+judicator = [81, 97, 97]
+imperialist = [89, 32, 32]
+battlehammer = [73, 24, 97]
+voltDriver = [203, 203, 73]
+
+
+[hunterSpecs.Spire]
+isHudCoords = [20, 510] #Coordinates to check for color match if we are in HUD
+isHudColor = [89, 73, 56] #Color of highlight
+isAltCoords = [750, 570] #Coordinates to check if we are in alt form or not
+isNotAltColor = [235, 178, 16] #Color that the morph switch turns to at the specified coordinates when not in alt form
+mainWeaponSenseColor = [251, 113, 56] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Spire.mainWeaponCoords]
+powerBeam = [275, 75]
+missiles = [485, 85]
+third = [673, 175]
+
+[hunterSpecs.Spire.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [641, 170]
+magmaul = [594, 140]
+judicator = [634, 163]
+imperialist = [584, 150]
+battlehammer = [655, 107]
+voltDriver = [619, 93]
+
+[hunterSpecs.Spire.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [73, 65, 56]
+magmaul = [73, 65, 56]
+judicator = [73, 65, 56]
+imperialist = [73, 65, 56]
+battlehammer = [73, 65, 56]
+voltDriver = [73, 65, 56]
+
+[hunterSpecs.Trace]
+isHudCoords = [875, 515] #Coordinates to check for color match if we are in HUD
+isHudColor = [113, 113, 113] #Color of highlight
+isAltCoords = [782, 531] #Coordinates to check if we are in alt form or not
+isAltColor = [227, 16, 24] #Color that the morph switch turns to at the specified coordinates when in alt form
+mainWeaponSenseColor = [113, 8, 8] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Trace.mainWeaponCoords]
+powerBeam = [302, 77]
+missiles = [450, 124]
+third = [649, 154]
+
+[hunterSpecs.Trace.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [634, 95]
+magmaul = [638, 100]
+judicator = [619, 132]
+imperialist = [619, 96]
+battlehammer = [619, 115]
+voltDriver = [619, 83]
+
+[hunterSpecs.Trace.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [0, 24, 32]
+magmaul = [32, 16, 0]
+judicator = [8, 24, 24]
+imperialist = [48, 0, 0]
+battlehammer = [32, 0, 56]
+voltDriver = [24, 24, 0]
+
+[hunterSpecs.Noxus]
+isHudCoords = [80, 530] #Coordinates to check for color match if we are in HUD
+isHudColor = [73, 81, 89] #Color of indent
+isAltCoords = [734, 464] #Coordinates to check if we are in alt form or not
+isAltColor = [138, 178, 243] #Color that the morph switch turns to at the specified coordinates when in alt form
+mainWeaponSenseColor = [81, 154, 211] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Noxus.mainWeaponCoords]
+powerBeam = [267, 74]
+missiles = [414, 70]
+third = [676, 105]
+
+[hunterSpecs.Noxus.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [631, 77]
+magmaul = [634, 82]
+judicator = [592, 87]
+imperialist = [614, 78]
+battlehammer = [645, 116]
+voltDriver = [604, 56]
+
+[hunterSpecs.Noxus.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [186, 251, 235]
+magmaul = [243, 211, 154]
+judicator = [219, 195, 251]
+imperialist = [243, 170, 170]
+battlehammer = [219, 195, 251]
+voltDriver = [219, 195, 251]
+
+[hunterSpecs.Sylux]
+isHudCoords = [115, 540] #Coordinates to check for color match if we are in HUD
+isHudColor = [89, 97, 138] #Color of highlight
+isAltCoords = [738, 624] #Coordinates to check if we are in alt form or not
+isAltColor = [227, 251, 195] #Color that the morph switch turns to at the specified coordinates when in alt form
+mainWeaponSenseColor = [235, 251, 211] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Sylux.mainWeaponCoords]
+powerBeam = [325, 84]
+missiles = [471, 147]
+third = [570, 80]
+
+[hunterSpecs.Sylux.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [628, 106]
+magmaul = [631, 111]
+judicator = [612, 141]
+imperialist = [612, 109]
+battlehammer = [612, 124]
+voltDriver = [612, 94]
+
+[hunterSpecs.Sylux.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [56, 73, 89]
+magmaul = [105, 81, 32]
+judicator = [81, 97, 97]
+imperialist = [89, 32, 32]
+battlehammer = [73, 24, 97]
+voltDriver = [97, 97, 32]
+
+[hunterSpecs.Weavel]
+isHudCoords = [45, 480] #Coordinates to check for color match if we are in HUD
+isHudColor = [81, 89, 73] #Color of highlight
+isAltCoords = [806, 618] #Coordinates to check if we are in alt form or not
+isAltColor = [203, 56, 32] #Color that the morph switch turns to at the specified coordinates when in alt form
+mainWeaponSenseColor = [211, 154, 56] #Color of a weapon button when it is highlighted
+
+[hunterSpecs.Weavel.mainWeaponCoords]
+powerBeam = [258, 88]
+missiles = [473, 149]
+third = [660, 170]
+
+[hunterSpecs.Weavel.thirdWeaponCoords] #Coordinates to search for the third weapon at
+shockCoil = [627, 167]
+magmaul = [615, 165]
+judicator = [620, 160]
+imperialist = [649, 143]
+battlehammer = [648, 137]
+voltDriver = [602, 89]
+
+[hunterSpecs.Weavel.thirdWeaponSenseColors] #Colors to sense for in the HUD to detect the third weapon
+shockCoil = [97, 81, 154]
+magmaul = [97, 81, 154]
+judicator = [97, 81, 154]
+imperialist = [97, 81, 154]
+battlehammer = [97, 81, 154]
+voltDriver = [97, 81, 154]
