@@ -35,8 +35,6 @@ DS_SCREEN_SIZE = (256, 192)
 # The relative pixel size of the hybrid emulator display area
 EMU_DISP_SIZE = DS_SCREEN_SIZE[0] * 3, DS_SCREEN_SIZE[1] * 2
 
-# The pixel height of the MelonPrimeDS emulator menu bar
-EMU_MENUBAR_HEIGHT = 25
 
 """
 Select window.
@@ -66,7 +64,7 @@ def get_screenshot(wholerender: bool = False) -> Image:
     cp = subprocess.run(SCSH_COMMAND.split(), capture_output=True)
     buff = io.BytesIO(cp.stdout)
     img = Image.open(buff)
-    img = img.crop((0, EMU_MENUBAR_HEIGHT, *img.size))
+    img = img.crop((0, CONFIG["emuMenubarHeight"], *img.size))
 
     # Find how much the DS screen is being scaled
     factor = min((img.width / EMU_DISP_SIZE[0], img.height / EMU_DISP_SIZE[1]))
@@ -242,28 +240,35 @@ def multiple_choice(title: str, options: Sequence[str]) -> str:
         if entry:
             print("Invalid entry. Please type a number or the option itself.")
 
+
 client = OpenRGBClient()
 
-# Device selection code
-devices_by_name = {device.name: device for device in client.devices}
-name_choice = multiple_choice("Choose RGB device to use:", list(devices_by_name))
-device = devices_by_name[name_choice]
+try:
+    # Device selection code
+    devices_by_name = {device.name: device for device in client.devices}
+    name_choice = multiple_choice("Choose RGB device to use:", list(devices_by_name))
+    device = devices_by_name[name_choice]
 
-prev_hunter = None
-prev_weapon = None
-device.set_color(RGBColor(0, 0, 0))
+    prev_hunter = None
+    prev_weapon = None
+    device.set_color(RGBColor(0, 0, 0))
 
-while True:
-    screenshot = get_screenshot()
-    hunter = get_active_hunter(screenshot)
-    if hunter != prev_hunter:
-        print("Hew hunter detected:", hunter)
-        prev_hunter = hunter
-    weapon = get_active_weapon(screenshot, hunter) if hunter else None
-    if weapon != prev_weapon:
-        print("New weapon detected:", weapon)
-        prev_weapon = weapon
-        if not weapon:
-            device.set_color(RGBColor(0, 0, 0))
-        else:
-            device.set_color(RGBColor(*CONFIG["weaponColorsShow"][weapon]))
+    while True:
+        screenshot = get_screenshot()
+        hunter = get_active_hunter(screenshot)
+        if hunter != prev_hunter:
+            print("Hew hunter detected:", hunter)
+            prev_hunter = hunter
+        weapon = get_active_weapon(screenshot, hunter) if hunter else None
+        if weapon != prev_weapon:
+            print("New weapon detected:", weapon)
+            prev_weapon = weapon
+            if not weapon:
+                device.set_color(RGBColor(0, 0, 0))
+            else:
+                device.set_color(RGBColor(*CONFIG["weaponColorsShow"][weapon]))
+
+finally:
+    print("Disconnecting OpenRGB client")
+    client.disconnect()
+    print("Done.")

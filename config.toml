@@ -9,6 +9,9 @@ killKey="backspace" #Kill the mouse fix
 
 colorTolerance = 10
 
+# The pixel height of the MelonPrimeDS emulator menu bar
+emuMenubarHeight = 25
+
 scale = [900, 674] #Size of reference window
 
 [weaponColorsShow] #Colors to display in the RGB for each weapon
