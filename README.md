@@ -1,6 +1,6 @@
 # Metroid Prime: Hunters RGB
 This program sets your PC's RGB lighting based on what weapon you are using in an emulated play of the Nintendo DS game, _Metroid Prime: Hunters_.
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/oqLmzRI"  ><a href="//imgur.com/a/oqLmzRI">MPH-RGB demo</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![Demo](mph-rgb_demo.gif "A GIF demonstrating the application")
 
 ## Prerequisites:
 - You will need [OpenRGB](https://openrgb.org/) to be running. If it does not support your RGB hardware, this program will not work.
