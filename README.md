@@ -14,11 +14,12 @@ This program sets your PC's RGB lighting based on what weapon you are using in a
 This program was written in Python 3.13 (may work with other versions of Python 3), and relies on the following non-native Python packages:
 - [OpenRGB-Python](https://pypi.org/project/openrgb-python/)
 - [Pillow](https://pypi.org/project/pillow/)
+- ~~TOMLlib~~ (I thought this was a third-party library, but maybe not)
 
 You can install these all at once by running `python3 -m pip install -r requirements.txt` within the downloaded repository folder.
 
 ## Usage
-The script is meant to be run from the command line. At startup, it will ask you which RGB device to use if it detects multiple. Once you do that, just switch back to the Melon window and play. When you are done, abort the script from the terminal with <kbd>Ctrl</kbd>+<kbd>C</kdb>. Enjoy!
+The script is meant to be run from the command line. At startup, it will ask you which RGB device to use if it detects multiple. Once you do that, just switch back to the Melon window and play. When you are done, abort the script from the terminal with <kbd>Ctrl</kbd>+<kbd>C</kbd>. Enjoy!
 
 ## Legal
 Copyright 2026 Wilbur Jaywright dba Marswide BGL.
