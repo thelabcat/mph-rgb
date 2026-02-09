@@ -16,6 +16,9 @@ This program relies on the following non-native Python packages:
 
 You can install these all at once by running `python -m pip install -r requirements.txt` within the downloaded repository folder.
 
+## Usage
+The script is meant to be run from the command line. At startup, it will ask you which RGB device to use if it detects multiple. Once you do that, just switch back to the Melon window and play. When you are done, abort the script from the terminal with <kbd>Ctrl</kbd>+<kbd>C</kdb>. Enjoy!
+
 ## Legal
 Copyright 2026 Wilbur Jaywright dba Marswide BGL.
 
