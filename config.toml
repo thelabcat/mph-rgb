@@ -1,12 +1,4 @@
-hudCheckInterval = 1 #How often to check if Samus's HUD is shown
-pauseInterval = 0.1 #How often to run the pause loop
-buttonHoldInterval = 0.05 #How often to rerun the mouse movement command to keep the cursor locked onto a button
-startDelay = 3 #Time until mousefix starts after clicking Start
-
-
-pauseKey="\\" #Pause the mouse fix manually
-killKey="backspace" #Kill the mouse fix
-
+# How close a color must be to another to be considered a match, 3D euclidian space
 colorTolerance = 10
 
 # The pixel height of the MelonPrimeDS emulator menu bar
