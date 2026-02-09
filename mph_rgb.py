@@ -19,12 +19,13 @@ S.D.G.
 """
 
 import io
+import os
 import subprocess
+import tomllib
 from typing import Sequence
 from openrgb import OpenRGBClient
 from openrgb.utils import RGBColor  # , DeviceType
 from PIL import Image
-import tomllib
 
 with open("config.toml", "rb") as f:
     CONFIG = tomllib.load(f)
@@ -37,6 +38,8 @@ EMU_DISP_SIZE = DS_SCREEN_SIZE[0] * 3, DS_SCREEN_SIZE[1] * 2
 
 
 """
+The original plan (was not followed precisely, only kept for historical purposes):
+
 Select window.
 Calculate position of two screens.
 Start monitoring for game to enter first person.
@@ -47,8 +50,20 @@ While a game is in first person:
     If, by the time we have the screenshot, we have not been queued that there is a new weapon change, switch to the new one. Probably best handled by a thread.
 """
 
-# Command to take a screenshot and pipe it to stdout
-SCSH_COMMAND = "spectacle -abne -d 0 -o /proc/self/fd/1"
+# Command to take a screenshot of the active window immediately and pipe it to stdout
+STDOUT_MAGICFILE = "/proc/self/fd/1"
+WAYLAND_COMMAND = "spectacle -abne -d 0 -o " + STDOUT_MAGICFILE
+XORG_COMMAND = "scrot -iuo " + STDOUT_MAGICFILE
+
+# Determine the correct command to use
+if os.environ.get("XDG_SESSION_TYPE") == "wayland" or os.environ.get("WAYLAND_DISPLAY"):
+    # We are using Wayland
+    SCSH_COMMAND = WAYLAND_COMMAND
+    print("Detected Wayland.")
+else:
+    # We are probably using XOrg
+    SCSH_COMMAND = XORG_COMMAND
+    print("Did not detect Wayland, assuming XOrg.")
 
 
 def get_screenshot(wholerender: bool = False) -> Image:
@@ -61,7 +76,7 @@ def get_screenshot(wholerender: bool = False) -> Image:
     Returns:
         shot (Image): The screenshot."""
 
-    cp = subprocess.run(SCSH_COMMAND.split(), capture_output=True)
+    cp = subprocess.run(SCSH_COMMAND.split(), capture_output=True, check=True)
     buff = io.BytesIO(cp.stdout)
     img = Image.open(buff)
     img = img.crop((0, CONFIG["emuMenubarHeight"], *img.size))
@@ -249,26 +264,49 @@ try:
     name_choice = multiple_choice("Choose RGB device to use:", list(devices_by_name))
     device = devices_by_name[name_choice]
 
+    # Memory for previous state, so we only send color changes when we need to
     prev_hunter = None
     prev_weapon = None
+
+    # Initial color should assume no hunter is active
     device.set_color(RGBColor(0, 0, 0))
 
+    # Program continues until interrupted
+    print("Press Ctrl+C to stop the program when done playing.")
     while True:
+        # Constantly scan the emulator screen
         screenshot = get_screenshot()
+
+        # If not hunter is active, this will be None
         hunter = get_active_hunter(screenshot)
+
+        # Hunter memory is mainly for debug. It's a weapon change we care about
         if hunter != prev_hunter:
             print("Hew hunter detected:", hunter)
             prev_hunter = hunter
+
+        # Detect the current weapon in use, but only if a hunter is active.
+        # If no hunter is active, the weapon will of course be None as well
         weapon = get_active_weapon(screenshot, hunter) if hunter else None
+
+        # There has been a weapon change
         if weapon != prev_weapon:
+            # Note the change to memory
             print("New weapon detected:", weapon)
             prev_weapon = weapon
+
+            # Note: Weapon can only and will always be None if hunter is None
+            # When there is no hunter/weapon, turn the lights off
             if not weapon:
                 device.set_color(RGBColor(0, 0, 0))
+
+            # Otherwise, set the appropiate color for the new weapon selection
             else:
                 device.set_color(RGBColor(*CONFIG["weaponColorsShow"][weapon]))
 
+# When we abort with Ctrl+C
 finally:
+    # We have to do this or the OpenRGB server keeps a ghost connection open indefinitely
     print("Disconnecting OpenRGB client")
     client.disconnect()
     print("Done.")
